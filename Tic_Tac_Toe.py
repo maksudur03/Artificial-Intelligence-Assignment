@@ -102,7 +102,6 @@ def check_box_vacancy(position):
     else:
         row = int(position / 3)
         col = int(position%3)-1 
-    print(row , col)
     if check_position(main_table, row, col):
          main_table[row][col] = player
          return False
@@ -113,29 +112,36 @@ def check_box_vacancy(position):
 if __name__ == "__main__":
     player = 'x'
     ai = 'o'
+    demo_table = [
+        ['1', '2', '3'],
+        ['4', '5', '6'],
+        ['7', '8', '9']
+    ]
+    print("\n\n --------WELCOME TO TIC_TAC_TOE-------\n\nThis are the indices of the table")
+    draw_table(demo_table)
+    print("\n\n")
     main_table = [
         [' ', ' ', ' '],
         [' ', ' ', ' '],
         [' ', ' ', ' ']
     ]
-
     while True:
         draw_table(main_table)
         val = check_winning_condition(main_table)
         if val == 10:
-            print("!~!~!~!~!~!~ Computer wins !~!~!~!~!~!~")
+            print("\n\n!~!~!~!~!~!~ Computer wins !~!~!~!~!~!~\n\n")
             break
         elif val == -10:
-            print("!~!~!~!~!~! You win !~!~!~!~!~!")
+            print("\n\n!~!~!~!~!~! You win !~!~!~!~!~!\n\n")
             break
         elif (val != 10 or -10) and is_box_remaining(main_table) is False:
-            print("====== Game Tied ======")
+            print("\n\n====== Game Tied ======\n\n")
             break
-        choice = int(input("Select your preferred blank box between [1-9]\n"))
+        choice = int(input("Choose the index of your preferred blank box >>>>\n"))
         if check_box_vacancy(choice) :
             continue
         draw_table(main_table)
         if is_box_remaining(main_table):
-            print("Computerr is selecting it's move")
+            print("Computer is selecting it's move")
             move_ai = select_best_box(table=main_table)
             main_table[move_ai.row][move_ai.col] = ai
